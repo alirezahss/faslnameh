@@ -355,6 +355,47 @@ p, li, blockquote { text-wrap: pretty; }
 .voices { grid-template-columns: repeat(4, 1fr); }
 @media (min-width: 640px) { .voices { grid-template-columns: repeat(6, 1fr); } }
 @media (max-width: 380px) { .voices { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---------- phone polish ---------- */
+/* justified Persian text opens big word gaps on narrow screens: ragged-left with pretty wrapping there, justify only when wide */
+.prose, .ad-frame p, .tm-intro { text-align: start; hyphens: none; }
+@media (min-width: 720px) { .prose { text-align: justify; } }
+/* the old floating button covered the text; the contents link now lives inside the slogan bar */
+.fab { display: none; }
+.slogan-bar { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.slogan-bar::before { display: none; }
+.sb-text::before { content: "◆"; font-size: 10px; margin-inline-end: 8px; vertical-align: middle; color: #C99A4E; }
+.sb-toc { position: absolute; inset-inline-end: max(12px, env(safe-area-inset-left, 0px)); color: #E9C88E; text-decoration: none;
+  font-size: 12px; font-weight: 800; border: 1px solid rgba(201,154,78,.6); border-radius: 999px; padding: 2px 10px; }
+@media (max-width: 420px) { .sb-text { font-size: 12px; } .slogan-bar { justify-content: flex-start; padding-inline-start: 14px; } }
+/* service tags: two even columns on phones, the fifth spans both, so no tag sits alone */
+@media (max-width: 560px) {
+  .tm-svc { display: grid; grid-template-columns: 1fr 1fr; max-width: 340px; }
+  .tm-svc li { text-align: center; }
+  .tm-svc li:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; }
+}
+/* Persian numerals on the call-for-papers lists */
+.call ol { list-style: persian; }
+/* footer: balanced lines, meta stacked instead of breaking mid-phrase */
+.foot .slogan, .foot .credit, .tm-intro, .block-title, .motto { text-wrap: balance; }
+.foot-meta { display: flex; flex-wrap: wrap; gap: 2px 14px; }
+.foot-meta span + span::before { content: "·"; margin-inline-end: 14px; color: #6FB3B8; }
+@media (max-width: 480px) { .foot-meta { flex-direction: column; } .foot-meta span + span::before { display: none; } }
+.voices a { font-size: 12px; }
+.team .tm-intro { text-align: center; text-wrap: balance; }
+/* phones: services as one centred, balanced line of text with dot separators instead of pills */
+@media (max-width: 560px) {
+  .tm-svc { display: block; max-width: 330px; text-align: center; text-wrap: balance; line-height: 2; }
+  .tm-svc li { display: inline; border: 0; padding: 0; font-size: 13.5px; color: #E9C88E; }
+  .tm-svc li + li::before { content: "·"; color: #6FB3B8; margin: 0 8px; }
+  .tm-svc li { white-space: nowrap; }
+}
+@media (max-width: 560px) { .tm-svc li + li::before { margin: 0 8px 0 0; } .tm-svc li { margin-inline-end: 4px; } }
+@media (max-width: 560px) {
+  .tm-svc li { display: block; margin: 0; line-height: 2; }
+  .tm-svc li + li::before { content: none; }
+}
+@media (min-width: 561px) { .tm-svc { max-width: 470px; } }
 </style>
 <style>.pdf-dl a{display:inline-block;margin:6px 0 10px;padding:8px 18px;border-radius:999px;background:#C99A4E;color:#0B2230;font-weight:800;text-decoration:none}</style>
 </head><body>
@@ -736,7 +777,7 @@ p, li, blockquote { text-wrap: pretty; }
     <p class="tm-eye">پشت صحنه</p>
     <p class="tm-sub">تیم طراحی و توسعه وب‌سایت</p>
     <h2>امید کیش</h2>
-    <ul class="tm-svc"><li>طراحی گرافیک و صفحه‌آرایی</li><li>توسعه وب‌سایت</li><li>هویت بصری و برندینگ</li><li>نشر دیجیتال</li><li>طراحی تجربه کاربری</li></ul>
+    <ul class="tm-svc"><li>طراحی گرافیک و صفحه‌آرایی</li> <li>توسعه وب‌سایت</li> <li>هویت بصری و برندینگ</li> <li>نشر دیجیتال</li> <li>طراحی تجربه کاربری</li></ul>
     <p class="tm-intro">طراحی جلد، صفحه‌آرایی، نمودارها، نسخه دیجیتال و وب‌سایت این شماره، کار تیم امید کیش است؛ تیمی که کوشیده است یادداشت‌های تخصصی اقتصاد دریا را در قالبی خوانا، منظم و درخور مخاطبان آن عرضه کند.</p>
     <p class="tm-role">سرگروه و مدیر خلاق</p>
     <p class="tm-lead">سید علیرضا حسینی</p>
@@ -758,13 +799,12 @@ p, li, blockquote { text-wrap: pretty; }
 </main>
 
 <footer class="foot"><div class="wrap">
-  <p class="slogan">بندر، پایان مسیر نیست؛ آغاز یک زنجیره است.</p>
-  <p>فصلنامه اقتصاد دریاپایه · گروه اقتصاد دریاپایه امین · شماره ۱ · پاییز ۱۴۰۵</p>
+  <p class="slogan">بندر، پایان مسیر نیست؛<br>آغاز یک زنجیره است.</p>
+  <p class="foot-meta"><span>فصلنامه اقتصاد دریاپایه</span><span>گروه اقتصاد دریاپایه امین</span><span>شماره ۱ · پاییز ۱۴۰۵</span></p>
   <p class="pdf-dl"><a href="faslnameh-shomare-1.pdf" download>دانلود نسخه PDF فصلنامه</a></p>
   <p class="credit">طراحی، صفحه‌آرایی و وب‌سایت: <a href="#team">تیم امید کیش</a>، به سرپرستی سید علیرضا حسینی</p>
 </div></footer>
-<div class="slogan-bar">اینجا فقط از جنوب صحبت می‌کنیم</div>
-<a class="fab" href="#contents" aria-label="رفتن به فهرست">فهرست</a>
+<div class="slogan-bar"><span class="sb-text">اینجا فقط از جنوب صحبت می‌کنیم</span><a class="sb-toc" href="#contents" aria-label="رفتن به فهرست">فهرست</a></div>
 </div>
 
 </body></html>
